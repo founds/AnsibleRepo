@@ -1,5 +1,5 @@
 ---
-# Version: 0.1
+# Version: 0.2
 - name: Comprobar configuracion de servidor SSH
   hosts: all
   become: true
@@ -29,6 +29,7 @@
       vars:
         ansible_become: false
       register: desired_port_check
+      
     - fail:
         msg: "ssh is not running (or is running on an unknown port)"
       when: default_port_check is failed and desired_port_check is failed
@@ -38,15 +39,7 @@
         - debug:
             msg: "¡SSH funcionando en el puerto por defecto.!"
 
-        - name: configure ansible to use port {{ default_ssh_port }}
-          set_fact:
-            ansible_port: "{{ default_ssh_port }}"
-
     - when: desired_port_check is success
       block:
         - debug:
             msg: "¡SSH funcionando en el puerto deseado.!"
-
-        - name: configure ansible to use port {{ desired_ssh_port }}
-          set_fact:
-            ansible_port: "{{ desired_ssh_port }}"
