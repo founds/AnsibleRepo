@@ -1,3 +1,9 @@
-- name: Ping web servers
-  ping:
-  register: ping_result
+---
+# Version: 0.1
+- name: Comprobar configuracion de servidor SSH
+  hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    default_ssh_port: 22
+    desired_ssh_port: 754
