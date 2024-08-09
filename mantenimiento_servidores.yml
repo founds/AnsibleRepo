@@ -1,0 +1,7 @@
+---
+- name: Plantilla de mantenimiento de servidores
+  hosts: auto
+  become: true
+
+  roles:
+    - configuraciones
