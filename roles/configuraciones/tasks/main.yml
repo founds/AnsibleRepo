@@ -1,0 +1,10 @@
+---
+- name: Establecer la zona horaria
+  community.general.timezone:
+    name: Europe/Madrid
+
+- name: Configurar prompt
+  template:
+      src: files/motd.j2
+      dest: /etc/motd
+  register: motd_file
