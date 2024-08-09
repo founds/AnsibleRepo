@@ -7,3 +7,25 @@
   vars:
     default_ssh_port: 22
     desired_ssh_port: 754
+  tasks:
+    - name: Comprobar si esta activo puerto 22 por defecto
+      delegate_to: localhost
+      wait_for:
+        port: "{{ default_ssh_port }}"
+        host: "{{ ansible_host }}"
+        timeout: 10
+      ignore_errors: true
+      vars:
+        ansible_become: false
+      register: default_port_check
+
+    - name: Comprobar si esta activo el puerto deseado
+      delegate_to: localhost
+      wait_for:
+        port: "{{ desired_ssh_port }}"
+        host: "{{ ansible_host }}"
+        timeout: 10
+      ignore_errors: true
+      vars:
+        ansible_become: false
+      register: desired_port_check
