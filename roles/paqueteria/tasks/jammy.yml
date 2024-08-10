@@ -1,3 +1,67 @@
 ---
+- name: Distribution version
+  debug: msg="{{ ansible_distribution_version}}"
 
+- include_tasks: jammy.yml
+  when: ansible_distribution_version == '22.04'
 
+- name: Actualizar repositorio APT
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+  timeout: "{{ os_update_timeout }}"
+  changed_when: false
+  ignore_errors: true
+
+- name: Instalar paqueteria basica
+  apt:
+    name:
+      - nano
+      - ufw
+      - curl
+      - locales
+      - gnupg2
+      - ca-certificates 
+      - lsb-release 
+      - sudo 
+      - unzip 
+      - bzip2 
+      - arj 
+      - nomarch 
+      - lzop 
+      - cabextract 
+      - apt-listchanges 
+      - git 
+      - software-properties-common 
+      - net-tools 
+      - zip
+      - ntp
+      - ntpdate
+      - python3-pip
+      - mc
+      - iputils-ping
+      - rsyslog
+      - openssh-server
+      - cron
+      - vim-tiny
+      - htop
+
+- name: Actualizar paqueteria
+  register: updatesys
+  apt:
+    upgrade: "{{ os_update_upgrade }}"
+  changed_when: false
+  ignore_errors: true
+
+- name: Mostrar log de instalacion
+  debug:
+    msg: "{{updatesys.stdout_lines|last}}"
+
+- name: Comprobar si es necesario un reinicio
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+
+- name: Reinicio es requerido
+  reboot:
+  when: reboot_required_file.stat.exists == true
