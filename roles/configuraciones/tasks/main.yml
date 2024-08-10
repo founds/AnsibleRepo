@@ -2,8 +2,6 @@
 - name: Establecer la zona horaria
   community.general.timezone:
     name: Europe/Madrid
-  become: yes
-  become_method: sudo
 
 - name: Configurar prompt
   template:
