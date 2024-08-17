@@ -2,6 +2,7 @@
 - name: Establecer la zona horaria
   community.general.timezone:
     name: Europe/Madrid
+  ignore_errors: true
 
 - name: Configurar prompt
   become: yes
@@ -9,6 +10,7 @@
       src: files/motd.j2
       dest: /etc/motd
   register: motd_file
+  ignore_errors: true
 
 - name: Salida de copia de motd
   debug:
