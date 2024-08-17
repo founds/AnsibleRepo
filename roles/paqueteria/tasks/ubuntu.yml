@@ -1,17 +1,4 @@
 ---
-- name: Actualizar repositorio APT
-  apt:
-    update_cache: true
-    cache_valid_time: 3600
-    force_apt_get: yes
-  timeout: "{{ os_update_timeout }}"
-  changed_when: false
-  ignore_errors: true
-
-- name: Wait for sudo
-  become: yes
-  shell:  while sudo fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do sleep 5; done;
-
 - name : Install multiple packages
   apt: name={{ item }} state=latest update_cache=true
   loop: [git, wget, unzip, curl]  
