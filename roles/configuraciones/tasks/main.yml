@@ -4,7 +4,12 @@
     name: Europe/Madrid
 
 - name: Configurar prompt
+  become: yes
   template:
       src: files/motd.j2
       dest: /etc/motd
   register: motd_file
+
+- name: Salida de copia de motd
+  debug:
+    msg: "{{ motd_file }}"
