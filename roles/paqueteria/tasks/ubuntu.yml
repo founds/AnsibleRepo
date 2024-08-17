@@ -48,6 +48,10 @@
     state: present
   ignore_errors: true
 
+- name : Install multiple packages
+    apt: name={{ item }} state=latest update_cache=true
+    loop: [git, wget, unzip, curl]  
+
 
 
   
