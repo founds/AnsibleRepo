@@ -3,6 +3,7 @@
   apt:
     update_cache: true
     cache_valid_time: 3600
+    force_apt_get: yes
   timeout: "{{ os_update_timeout }}"
   changed_when: false
   ignore_errors: true
