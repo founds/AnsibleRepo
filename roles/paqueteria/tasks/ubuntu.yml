@@ -8,7 +8,7 @@
   ignore_errors: true
 
 - name: Instalar paqueteria basica
-  apt:
+  ansible.builtin.apt:
     name:
       - nano
       - ufw
