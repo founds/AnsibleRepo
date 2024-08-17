@@ -3,7 +3,8 @@
   hosts: all
   become: yes
   become_method: sudo
-
+  become_user: sptadm
+  gather_facts: yes
   roles:
     - configuraciones
     - paqueteria
