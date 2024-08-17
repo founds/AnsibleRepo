@@ -5,7 +5,6 @@
   become_method: sudo
   become_user: sptadm
   gather_facts: yes
-  sudo: yes
   roles:
     - configuraciones
     - paqueteria
