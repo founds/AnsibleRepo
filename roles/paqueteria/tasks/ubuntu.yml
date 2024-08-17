@@ -12,45 +12,9 @@
   become: yes
   shell:  while sudo fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do sleep 5; done;
 
-- name: Instalar paqueteria basica
-  become: yes
-  ansible.builtin.apt:
-    name:
-      - nano
-      - ufw
-      - curl
-      - locales
-      - gnupg2
-      - ca-certificates 
-      - lsb-release 
-      - sudo 
-      - unzip 
-      - bzip2 
-      - arj 
-      - nomarch 
-      - lzop 
-      - cabextract 
-      - apt-listchanges 
-      - git 
-      - software-properties-common 
-      - net-tools 
-      - zip
-      - ntp
-      - ntpdate
-      - python3-pip
-      - mc
-      - iputils-ping
-      - rsyslog
-      - openssh-server
-      - cron
-      - vim-tiny
-      - htop
-    state: present
-  ignore_errors: true
-
 - name : Install multiple packages
-    apt: name={{ item }} state=latest update_cache=true
-    loop: [git, wget, unzip, curl]  
+  apt: name={{ item }} state=latest update_cache=true
+  loop: [git, wget, unzip, curl]  
 
 
 
